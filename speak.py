@@ -2,13 +2,14 @@ import pyttsx3
 import speech_recognition as sr
 
 def speak(text):
-    engine = pyttsx3.init()
-    engine.setProperty("rate",130)
-    engine.say(text)
-    engine.runAndWait()
+    speaker = pyttsx3.init()
+    speaker.setProperty("rate",130)
+    speaker.say(text)
+    speaker.runAndWait()
 
 
 def get_audio():
+    print("Now recording")
     r=sr.Recognizer()
     with sr.Microphone() as source:
         audio=r.listen(source)

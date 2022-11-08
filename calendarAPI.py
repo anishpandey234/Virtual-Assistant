@@ -1,5 +1,6 @@
 from __future__ import print_function
 from datetime import datetime, timedelta
+import datefinder
 from dateutil.parser import *
 import os.path
 from google.auth.transport.requests import Request
@@ -61,3 +62,37 @@ def get_events(date,service):
                     hour=str(int(startTime[:2])-12) 
                     startTime=(hour + startTime[2::] + "pm")
                 speak((event['summary'] + " at " + startTime))
+
+
+calendarPrompts=["what do i have ", "what do i need to do on", "do i have anything on", "am I busy on",]
+
+def get_date(text):
+    matches = list(datefinder.find_dates(text))
+
+    if len(matches) > 0:
+    # date returned will be a datetime.datetime object. here we are only using the first match.
+        date = matches[0]
+        return(date)
+    
+    # still have to implement edge case: NEXT sunday, THIS thursday
+    # only works with specific dates (Sept 2nd, Dec 1st, etc)
+
+service=authenticate()
+
+def speakEvents(command):
+    date=get_date(command)
+    if date:
+        get_events(date,service)
+    else:
+        speak("Sorry. Please try again.")
+
+
+
+
+# for prompt in calendarPrompts:
+#     if prompt in command.lower():
+#         date=get_date(command)
+#         if date:
+#             get_events(date,service)
+#         else:
+#             speak("Sorry. Please try again.")
