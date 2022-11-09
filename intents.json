@@ -2,12 +2,17 @@
 [
     {
         "tag":"greetings", 
-        "patterns":["hello","hey","good morning"],
-        "responses":["Hello! What can I do for you?","Hi. What Can I do for you?"]
+        "patterns":["hello","hey","good morning","good afternoon","how are you"],
+        "responses":[""]
     },
     {
         "tag":"get_calendar", 
         "patterns":["what do i have ", "what do i need to do on", "do i have anything on", "am I busy on"],
+        "responses":[""]
+    },
+    {
+        "tag":"end", 
+        "patterns":["Bye ", "Quit", "Goodbye", "I have to go"],
         "responses":[""]
     }
 ]

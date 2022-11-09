@@ -12,8 +12,8 @@ def get_audio():
     print("Now recording")
     r=sr.Recognizer()
     with sr.Microphone() as source:
-        audio=r.listen(source)
+        audio=r.listen(source,phrase_time_limit=7)
     try:
         return (r.recognize_google(audio))
-    except LookupError or Exception:
+    except LookupError or Exception or sr.UnknownValueError:
         return ("I'm sorry. I could not understand you")
