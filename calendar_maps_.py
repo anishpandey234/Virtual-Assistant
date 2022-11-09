@@ -8,6 +8,9 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+import googlemaps 
+from speak import speak
+from dotenv import load_dotenv  # to load env variable (API for googleMaps)
 import os
 import pytz
 from speak import *
@@ -38,9 +41,9 @@ def authenticate():
 def get_events(date,service):
         # Call the Calendar API
         utc=pytz.UTC
-        date = date.astimezone(utc)
-        tomorrow = date+timedelta(1)
-        tomorrow = tomorrow.astimezone(utc)
+        date = date.astimezone(utc)          
+        tomorrow = date+timedelta(1)         
+        tomorrow = tomorrow.astimezone(utc)  #to set max of date (only events until 12 am tomorrow)
         
         events_result = service.events().list(calendarId='primary', timeMin=date.isoformat(), timeMax=tomorrow.isoformat(),
                                                singleEvents=True,
@@ -87,12 +90,24 @@ def speakEvents(command):
         speak("Sorry. Please try again.")
 
 
+####################################################### Google Maps section
+
+load_dotenv()
+api_key=os.environ.get("mapsAPI")
+map_client=googlemaps.Client(api_key)
+
+def findPlace():
+    speak("Sure. What is the name of the place you'd like to find?")
+    place=get_audio()
+    try:
+        result=map_client.places(query=place).get('results')[0]
+    except IndexError:
+        speak("I'm sorry. I could not find your location")
+        return
+    address=result.get('formatted_address')
+    rating=result.get('rating')
+    speak(f"This place is located at {address}. It's rated {rating} stars out of 5.")
 
 
-# for prompt in calendarPrompts:
-#     if prompt in command.lower():
-#         date=get_date(command)
-#         if date:
-#             get_events(date,service)
-#         else:
-#             speak("Sorry. Please try again.")
+
+

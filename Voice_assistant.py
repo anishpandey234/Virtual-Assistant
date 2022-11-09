@@ -1,13 +1,16 @@
-from calendarAPI import *
+from calendar_maps_ import *
 from basicFuncs import *
+from newsAPI import *
 from neuralintents import GenericAssistant
 
 def calendarEvents():
     speakEvents(command)
 
-mappings={"get_calendar":calendarEvents,"greetings":greet,"end":end}  # Format: "intent" : function
+mappings={"get_calendar":calendarEvents,"greetings":greet,"end":end,"news":getTitles,"map":findPlace}    # Format: "intent" : function
 assistant=GenericAssistant("intents.json",intent_methods=mappings)
-assistant.load_model()
+assistant.train_model()
+assistant.save_model()
+# assistant.load_model()
 
 while True:
     try: 
@@ -17,6 +20,7 @@ while True:
     if command.count("Goodbye")>1:
         end()
     assistant.request(command)
+
 
 
     

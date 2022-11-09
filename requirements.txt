@@ -1,0 +1,9 @@
+neuralintents
+tensorflow
+datefinder
+pytz
+os
+speech recognition
+datetime
+dateutil
+googleauth 

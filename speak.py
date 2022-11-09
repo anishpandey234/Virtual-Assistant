@@ -14,6 +14,7 @@ def get_audio():
     with sr.Microphone() as source:
         audio=r.listen(source,phrase_time_limit=7)
     try:
-        return (r.recognize_google(audio))
+        test = (r.recognize_google(audio))
+        return test.lower()
     except LookupError or Exception or sr.UnknownValueError:
         return ("I'm sorry. I could not understand you")

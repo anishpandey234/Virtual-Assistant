@@ -2,7 +2,7 @@ from speak import *
 import sys
 
 def greet():
-    speak("Hello, what can I do for you")
+    speak("Hey!, What can I do for you?")
 
 def end():
     speak("Goodbye")

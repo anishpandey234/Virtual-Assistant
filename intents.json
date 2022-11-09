@@ -12,7 +12,17 @@
     },
     {
         "tag":"end", 
-        "patterns":["Bye ", "Quit", "Goodbye", "I have to go"],
+        "patterns":["bye ", "quit", "goodbye", "i have to go"],
+        "responses":[""]
+    },
+    {
+        "tag":"news", 
+        "patterns":["news ", "whats on the news", "can you get me the news for today", "top news", "news articles"],
+        "responses":[""]
+    },
+    {
+        "tag":"map", 
+        "patterns":["can you find the address of ", " open google maps", "check google maps", "check the map", "find me this place", "find an address"],
         "responses":[""]
     }
 ]
